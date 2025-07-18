@@ -1,5 +1,6 @@
 from app.scrapers.hacker_news import scrape_hacker_news
 from app.scrapers.techcrunch import scrape_techcrunch
+from app.scrapers.reddit import scrape_reddit
 from app.core.database import SessionLocal, Article
 
 from datetime import datetime
@@ -32,6 +33,12 @@ if __name__ == "__main__":
         print("[✓] TechCrunch scraped")
     except Exception as e: 
         print(f"[!] TechCrunch failed: {e}")
+
+    try: 
+        all_articles.extend(scrape_reddit("technology", limit=10))
+        print("[✓] Reddit scraped")
+    except Exception as e: 
+        print(f"[!] Reddit failed: {e}")
 
     save_articles(all_articles)
     print(f"[✓] {len(all_articles)} total articles saved.")
