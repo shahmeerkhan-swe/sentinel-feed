@@ -17,7 +17,7 @@ def scrape_reddit(subreddit="technology", limit=10):
             "title": post_data["title"],
             "url": "https://www.reddit.com" + post_data["permalink"],
             "source": f"r/{subreddit}",
-            "published_at": datetime.utcfromtimestamp(post_data["created_utc"]).isoformat() + "Z"
+            "scraped_at": datetime.utcfromtimestamp(post_data["created_utc"]).isoformat() + "Z"
         })
 
     return articles
