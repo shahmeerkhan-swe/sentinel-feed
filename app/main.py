@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.routes import user, scraper, preference, articles
+from app.core.scheduler import start_scheduler
 
 app = FastAPI(title="Sentinel Feed")
 
@@ -30,3 +31,7 @@ app.include_router(
 @app.get("/")
 def root():
     return {"message": "Sentinel Feed API is live"}
+
+@app.on_event("startup")
+async def startup_event():
+    start_scheduler()
