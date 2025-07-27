@@ -18,7 +18,7 @@ app.include_router(
 
 app.include_router(
     preference.router,
-    prefix="/api",
+    prefix="/api/preference",
     tags=["Preferences"]
 )
 

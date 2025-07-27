@@ -8,7 +8,7 @@ from app.schemas.preference import PreferenceCreate, PreferenceOut, PreferenceUp
 from app.schemas.user import UserOut
 from app.models.user import User
 
-router =APIRouter()
+router = APIRouter()
 
 def get_db():
     db = SessionLocal()
