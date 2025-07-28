@@ -16,15 +16,18 @@ def get_articles_since_yesterday():
     db.close()
     return articles
 
-def send_email_digest(articles):
+def send_email_digest(articles, smtp_class=smtplib.SMTP, template_env=None, now=None):
     if not articles: 
         print("[i] No new articles to send.")
         return
     
-    template_dir = os.path.join(os.path.dirname(__file__), '..', 'templates')
-    env = Environment(loader=FileSystemLoader(template_dir))
-    template = env.get_template('digest.html.j2')
-    html_content = template.render(articles=articles, now=datetime.now())
+    if template_env is None: 
+        template_dir = template_dir = os.path.join(os.path.dirname(__file__), '..', 'templates')
+        template_env = Environment(loader=FileSystemLoader(template_dir))
+
+    template = template_env.get_template('digest.html.j2')
+    now = now or datetime.now()
+    html_content = template.render(articles=articles, now=now)
     
     sender = os.getenv("EMAIL_USER")
     receiver = os.getenv("EMAIL_RECEIVER")
@@ -39,7 +42,7 @@ def send_email_digest(articles):
     msg.set_content("Your email client does not support HTML.")
     msg.add_alternative(html_content, subtype='html')
 
-    with smtplib.SMTP(smtp_host, smtp_port) as server: 
+    with smtp_class(smtp_host, smtp_port) as server: 
         server.starttls()
         server.login(sender, password)
         server.send_message(msg)
