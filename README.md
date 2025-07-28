@@ -18,6 +18,18 @@
 
 ## 🧠 Future Plans
 
+## Deployed On
+- **Platform** [Railway](https://railway.app)
+- **URL:** sentinel-feed-production.up.railway.app
+
+## Requirements
+- Python 3.12+ 
+- FastAPI
+- Uvicorn
+- SQLAlchemy, AioSQLite
+- python-jose
+- dotenv, apscheduler
+
 ## 📄 License
 - MIT License -- free to use, modify, and share 
 
